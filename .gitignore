@@ -1,0 +1,4 @@
+# Local-only planning docs: they reference internal infrastructure and must never be published.
+docs/
+node_modules/
+local/

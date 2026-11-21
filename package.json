@@ -1,0 +1,19 @@
+{
+  "name": "karsanda",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "weave": "node --env-file-if-exists=local/weave.env src/cli.ts",
+    "preview": "node src/preview.ts"
+  },
+  "dependencies": {
+    "opentype.js": "1.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/opentype.js": "^1.3.10",
+    "typescript": "^7.0.2"
+  }
+}

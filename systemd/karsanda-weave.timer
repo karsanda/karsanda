@@ -1,0 +1,9 @@
+[Unit]
+Description=Weekly songket profile refresh (hourly tries on weekday work hours)
+
+[Timer]
+OnCalendar=Mon..Fri 09..17:00 Asia/Jakarta
+Persistent=true
+
+[Install]
+WantedBy=timers.target

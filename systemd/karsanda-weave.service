@@ -1,0 +1,9 @@
+[Unit]
+Description=Weave the songket GitHub profile banner
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/Workspace/karsanda
+EnvironmentFile=-%h/Workspace/karsanda/local/weave.env
+ExecStart=%h/Workspace/karsanda/scripts/publish.sh
