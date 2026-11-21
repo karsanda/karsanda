@@ -1,8 +1,8 @@
 [Unit]
-Description=Weekly songket profile refresh (hourly tries on weekday work hours)
+Description=Weekly songket profile refresh (hourly tries, weekdays 10:30-17:30 WIB)
 
 [Timer]
-OnCalendar=Mon..Fri 09..17:00 Asia/Jakarta
+OnCalendar=Mon..Fri 10..17:30 Asia/Jakarta
 Persistent=true
 
 [Install]
