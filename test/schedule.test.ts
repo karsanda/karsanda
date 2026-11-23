@@ -12,13 +12,20 @@ test('publish when GitLab was fetched this week', () =>
 test('wait on Thursday without fresh GitLab', () =>
   assert.equal(decide({ now: '2026-11-26T03:00:00Z', pushedWeek: '2026-W47', gitlabFetchedAt: '2026-11-16T02:00:00Z' }), 'wait'));
 
+const LAST_WEEK = '2026-11-16T02:00:00Z';
+
 test('Friday 17:00 WIB fallback publishes; 16:59 waits', () => {
-  assert.equal(decide({ now: '2026-11-27T10:00:00Z', pushedWeek: null, gitlabFetchedAt: null }), 'publish');
-  assert.equal(decide({ now: '2026-11-27T09:59:00Z', pushedWeek: null, gitlabFetchedAt: null }), 'wait');
+  assert.equal(decide({ now: '2026-11-27T10:00:00Z', pushedWeek: null, gitlabFetchedAt: LAST_WEEK }), 'publish');
+  assert.equal(decide({ now: '2026-11-27T09:59:00Z', pushedWeek: null, gitlabFetchedAt: LAST_WEEK }), 'wait');
 });
 
 test('weekend catch-up publishes', () =>
-  assert.equal(decide({ now: '2026-11-28T03:00:00Z', pushedWeek: '2026-W47', gitlabFetchedAt: null }), 'publish'));
+  assert.equal(decide({ now: '2026-11-28T03:00:00Z', pushedWeek: '2026-W47', gitlabFetchedAt: LAST_WEEK }), 'publish'));
+
+test('never fetched GitLab: no fallback, even on the weekend', () => {
+  assert.equal(decide({ now: '2026-11-27T10:00:00Z', pushedWeek: null, gitlabFetchedAt: null }), 'wait');
+  assert.equal(decide({ now: '2026-11-28T03:00:00Z', pushedWeek: '2026-W47', gitlabFetchedAt: null }), 'wait');
+});
 
 test('a GitLab fetch late Sunday UTC counts for the Jakarta Monday week', () =>
   // 2026-11-22T18:00Z is Monday 01:00 WIB → week 48

@@ -15,6 +15,7 @@ import { sumDays } from './collect/index.ts';
 import { EGG_MESSAGE } from './content.ts';
 import { addDays, jakartaDay, windowStart } from './dates.ts';
 import { renderAll } from './render.ts';
+import { notifyCommand } from './notify.ts';
 import { decide, isStale } from './schedule.ts';
 import type { GitlabResult } from './types.ts';
 
@@ -31,7 +32,8 @@ async function gitlab(env: NodeJS.ProcessEnv, after: string): Promise<GitlabResu
 
 async function notify(env: NodeJS.ProcessEnv): Promise<void> {
   const message = env.WEAVE_STALE_HINT || DEFAULT_STALE_HINT;
-  await promisify(execFile)(env.WEAVE_NOTIFY_CMD || 'notify-send', ['Songket profile', message]).catch(() => {});
+  const [cmd, args] = notifyCommand(env, process.platform, 'Songket profile', message);
+  await promisify(execFile)(cmd, args).catch(() => {});
   console.log(`stale: ${message}`);
 }
 
