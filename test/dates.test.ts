@@ -17,9 +17,10 @@ test('isoWeek matches date +%G-W%V, including 53-week years', () => {
   assert.equal(isoWeek('2026-01-01'), '2026-W01');
 });
 
-test('windowStart is the Monday 52 weeks before this week', () => {
-  assert.equal(windowStart('2026-11-21'), '2025-11-17');
-  assert.equal(daysBetween(windowStart('2026-11-21'), '2026-11-22').length, 371); // Mon 2025-11-17 … Sun 2026-11-22
+test('windowStart is the Sunday 52 weeks before this week', () => {
+  assert.equal(windowStart('2026-11-21'), '2025-11-16'); // Saturday: still the week of Sun 2026-11-15
+  assert.equal(windowStart('2026-11-22'), '2025-11-23'); // Sunday starts a new week
+  assert.equal(daysBetween(windowStart('2026-11-21'), '2026-11-21').length, 371); // Sun 2025-11-16 … Sat 2026-11-21
 });
 
 test('addDays crosses month and year', () => {

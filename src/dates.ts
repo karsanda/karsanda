@@ -43,9 +43,9 @@ export function isoWeek(day: string): string {
   return `${year}-W${String(week).padStart(2, '0')}`;
 }
 
-/** Monday of `today`'s week, minus 52 weeks: the first day of the 53-week window. */
+/** Sunday of `today`'s Sunday-to-Saturday week, minus 52 weeks: the first day of the 53-week window. */
 export function windowStart(today: string): string {
-  return addDays(today, -(weekdayOf(today) - 1) - 52 * 7);
+  return addDays(today, -(weekdayOf(today) % 7) - 52 * 7);
 }
 
 /** Every day from `from` to `to`, inclusive. */

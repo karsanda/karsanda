@@ -11,7 +11,7 @@ const uses = (svg: string, re: RegExp) => (svg.match(re) ?? []).length;
 
 test('one float per non-future day; active days use #f1–#f4', () => {
   const svg = renderWoven({ today, counts, theme: 'dark', message: 'hi' });
-  assert.equal(uses(svg, /href="#f[0-4]"/g), 370); // 371 window days minus Sun 2026-11-22
+  assert.equal(uses(svg, /href="#f[0-4]"/g), 371); // Sun 2025-11-16 … Sat 2026-11-21, no future days
   assert.equal(uses(svg, /href="#f[1-4]"/g), 3);
 });
 
@@ -74,7 +74,7 @@ test('hygienic, deterministic, themes differ', () => {
 test('an empty year still renders a full base weave', () => {
   const svg = renderWoven({ today, counts: new Map(), theme: 'dark', message: '' });
   assertHygienic(svg);
-  assert.equal(uses(svg, /href="#f0"/g), 370);
+  assert.equal(uses(svg, /href="#f0"/g), 371);
   assert.match(svg, /0 active days · 0 contributions/);
 });
 

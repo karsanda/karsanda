@@ -2,7 +2,7 @@ import { addDays, windowStart } from '../dates.ts';
 
 export const WEEKS = 53;
 
-/** 53 columns (weeks) × 7 rows (Mon..Sun) ending with today's week; days after today are null. */
+/** 53 columns (weeks) × 7 rows (Sun..Sat, weekend on both edges) ending with today's week; days after today are null. */
 export function buildGrid(today: string): (string | null)[][] {
   const start = windowStart(today);
   const columns: (string | null)[][] = [];
